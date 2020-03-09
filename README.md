@@ -53,6 +53,10 @@ export default {
 
 <style>
 .block {
+    height:200px;
+    width:90%;
+    margin:0 auto;
+    background-color:red;
 }
 </style>
 ```
