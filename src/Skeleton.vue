@@ -21,16 +21,13 @@
           bottom: `${item.bottom}px`,
           right: `${item.right}px`,
           left: `${item.left}px`
-        },
-        {
-          backgroundSize: `50vw ${item.height}px`
         }
       ]"
     ></view>
     <!-- 圆形骨头 -->
     <view
       class="skeleton-circular"
-      v-for="(item, index) in items"
+      v-for="(item, index) in circularList"
       :key="index"
       :style="[
         {
@@ -42,9 +39,6 @@
           bottom: `${item.bottom}px`,
           right: `${item.right}px`,
           left: `${item.left}px`
-        },
-        {
-          backgroundSize: `50vw ${item.height}px`
         }
       ]"
     ></view>
@@ -52,7 +46,6 @@
 </template>
 
 <script>
-import { isString, isArray } from 'lodash';
 export default {
   mounted() {
     const { windowWidth, windowHeight } = uni.getSystemInfoSync();
@@ -69,7 +62,7 @@ export default {
       windowWidth: '',
       windowHeight: '',
       rectList: [],
-      circular: []
+      circularList: []
     };
   },
   methods: {
@@ -96,6 +89,7 @@ export default {
     // 绘制圆形框
     async drawCircular() {
       const [circular] = await this.selectAll('.circular');
+      console.log('circular--->', circular);
       this.circularList = circular;
     }
   }
@@ -103,6 +97,7 @@ export default {
 </script>
 
 <style lang="scss">
+$bg-color: #dcdde1;
 // 骨总结构
 .skeleton-container {
   position: absolute;
@@ -113,32 +108,12 @@ export default {
 .skeleton-rect,
 .skeleton-circular {
   position: absolute;
+  background-color: $bg-color;
 }
-// 矩形、圆形进度条
-.skeleton-rect,
-.skeleton-circular {
-  background-color: #dcdde1; // 默认颜色
-  background-image: linear-gradient(
-    90deg,
-    #dcdde1 0,
-    #f5f6fa 50%,
-    #dcdde1 100%
-  );
-  background-position: -150% 0;
-  background-repeat: no-repeat;
-  animation: loading 0.5s ease-in-out infinite;
-}
-
 .skeleton-rect {
   border-radius: 4rpx;
 }
 .skeleton-circular {
   border-radius: 100%;
-}
-
-@keyframes loading {
-  to {
-    background-position: 350% 0;
-  }
 }
 </style>
